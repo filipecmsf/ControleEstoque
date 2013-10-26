@@ -4,7 +4,7 @@
   android:shape="rectangle">
   <stroke
     android:width="2dp"
-    android:color="@color/white" />
+    android:color="@color/cinza" />
   <gradient
     android:endColor="@color/cinza"
     android:startColor="@color/cinza"
