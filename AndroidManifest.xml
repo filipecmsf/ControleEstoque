@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.controleestoque"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        
+        <activity
+            android:name="com.android.controleestoque.activity.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name="com.android.controleestoque.activity.ListaProdutoActivity"
+            android:label="Lista Produto">
+        </activity>
+        
+        <activity android:name="com.android.controleestoque.activity.ListaCategoriaActivity"
+            android:label="Lista Categoria">
+        </activity>
+        
+        <activity android:name="com.android.controleestoque.activity.ListaMovimentacaoActivity"
+            android:label="Lista Movimentação">
+        </activity>
+        
+        <activity android:name="com.android.controleestoque.activity.Loading"
+            android:label="@string/app_name">
+        </activity>
+        
+        <activity android:name="com.android.controleestoque.activity.DetalheCategoriaActivity"
+            android:label="Cadastro Categoria">
+        </activity>
+        
+        <activity android:name="com.android.controleestoque.activity.DetalheMovimentacaoActivity"
+            android:label="Cadastro Movimentação">
+        </activity>
+        
+        <activity android:name="com.android.controleestoque.activity.DetalheProdutoActivity"
+            android:label="Detalhe Produto">
+        </activity>
+        
+        <activity android:name="com.android.controleestoque.activity.DadosProdutoActivity"
+            android:label="Detalhe Produto">
+        </activity>
+        
+    </application>
+
+</manifest>

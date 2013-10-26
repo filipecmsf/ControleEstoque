@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Controle Estoque</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="carregando">carregando dados</string>
+    
+    <string name="cadastrar">Cadastrar</string>
+    <string name="adicionar">Adicionar</string>
+    
+    <!-- strings de navigation drawer -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string-array name="items_array">
+        <item> Produtos </item>
+        <item> Categorias </item>
+        <item> Movimentação </item>
+    </string-array>
+</resources>
