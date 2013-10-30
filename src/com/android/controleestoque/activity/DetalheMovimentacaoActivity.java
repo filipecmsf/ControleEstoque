@@ -21,9 +21,10 @@ import com.android.controleestoque.db.DatabaseOpenHelper;
 
 public class DetalheMovimentacaoActivity extends ActionBarActivity {
 
-	private EditText valor;
-	private Spinner sp_produto;
-	private RadioButton entrada;
+	private EditText etValor;
+	private EditText etQuant;
+	private Spinner spProduto;
+	private RadioButton rbEntrada;
 	private DatabaseOpenHelper db;
 
 	private ArrayList<String> listaProdutos;
@@ -35,9 +36,10 @@ public class DetalheMovimentacaoActivity extends ActionBarActivity {
 
 		setContentView(R.layout.detalhes_movimentacao);
 
-		valor = (EditText) findViewById(R.id.et_valor_mov);
-		sp_produto = (Spinner) findViewById(R.id.sp_produto_mov);
-		entrada = (RadioButton) findViewById(R.id.radio_entrada);
+		etQuant = (EditText) findViewById(R.id.et_quant_mov);
+		etValor = (EditText) findViewById(R.id.et_valor_mov);
+		spProduto = (Spinner) findViewById(R.id.sp_produto_mov);
+		rbEntrada = (RadioButton) findViewById(R.id.radio_entrada);
 
 		db = new DatabaseOpenHelper(getApplicationContext());
 
@@ -61,44 +63,61 @@ public class DetalheMovimentacaoActivity extends ActionBarActivity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, listaProdutos);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		sp_produto.setAdapter(adapter);
+		spProduto.setAdapter(adapter);
 
 	}
 
 	public void cadastrar(View v) {
 
 		String texto = "";
+		Boolean completo = Boolean.TRUE;
 		
-		MovimentacaoVO movimentacaoVO = new MovimentacaoVO();
-		// VALOR
-		movimentacaoVO.setValor(Float.valueOf(valor.getText().toString()));
-
-		// TIPO
-		if (entrada.isChecked()) {
-			movimentacaoVO.setTipo(1);
-		} else {
-			movimentacaoVO.setTipo(0);
+		String valor = etValor.getText().toString();
+		String quant = etQuant.getText().toString();
+		
+		if(valor.trim().isEmpty()){
+			completo = Boolean.FALSE;
+			texto = "Informe o valor";
 		}
-
-		// PRODUTO
-		for (int i = 0; i < jsonarray.length(); i++) {
-			JSONObject json;
-			try {
-				json = jsonarray.getJSONObject(i);
-				if (sp_produto.getSelectedItem().toString() == json
-						.getString("NOME")) {
-					movimentacaoVO.setProduto(Integer.valueOf(json.getInt("ID")));
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
+		
+		if(quant.trim().isEmpty()){
+			completo = Boolean.FALSE;
+			texto = "Informe a quantidade";
+		}
+		
+		if(completo){
+			MovimentacaoVO movimentacaoVO = new MovimentacaoVO();
+			
+			movimentacaoVO.setValor(Float.valueOf(valor));
+			movimentacaoVO.setQuantidade(Integer.valueOf(quant));
+			
+			//pega o id do produto pega o tipo de movimentacao
+			if (rbEntrada.isChecked()) {
+				movimentacaoVO.setTipo(1);
+			} else {
+				movimentacaoVO.setTipo(0);
 			}
-		}
-		long result = db.insertMovimentacao(movimentacaoVO);
-		if (result > 0){
-			texto = "Movimentação cadastrada com sucesso !";
-		}
-		else{
-			texto = "Ocorreu um erro.";
+			
+			//pega o id do produto
+			for (int i = 0; i < jsonarray.length(); i++) {
+				JSONObject json;
+				try {
+					json = jsonarray.getJSONObject(i);
+					if (spProduto.getSelectedItem().toString() == json
+							.getString("NOME")) {
+						movimentacaoVO.setProduto(Integer.valueOf(json.getInt("ID")));
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			long result = db.insertMovimentacao(movimentacaoVO);
+			if (result > 0){
+				texto = "Movimentação cadastrada com sucesso !";
+			}
+			else{
+				texto = "Ocorreu um erro.";
+			}
 		}
 		Toast.makeText(this, texto,Toast.LENGTH_LONG).show();
 	}

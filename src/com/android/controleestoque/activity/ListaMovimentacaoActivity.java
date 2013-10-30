@@ -73,7 +73,7 @@ public class ListaMovimentacaoActivity extends ActionBarActivity{
 		for(int i = 0; i < jsonarray.length();i++){
 			try {
 				JSONObject json = jsonarray.getJSONObject(i);
-				itens.add(new ListaItem(json.getString("NOME"), (json.getInt("TIPO") == 1? "Entrada" : "Saída"), Long.valueOf(json.getString("VALOR"))));
+				itens.add(new ListaItem(json.getString("NOME"), (json.getInt("TIPO") == 1? "Entrada" : "Saída"), Float.valueOf(json.getString("VALOR"))));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

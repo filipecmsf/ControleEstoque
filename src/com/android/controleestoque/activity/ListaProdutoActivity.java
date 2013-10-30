@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,7 +37,8 @@ public class ListaProdutoActivity extends ActionBarActivity {
 	private CharSequence drawerTitle;
 	private CharSequence title;
 	private String[] itemsTitles;
-
+	private JSONArray jsonMovimentacao;
+	
 	private DatabaseOpenHelper db;
 	
 	private Boolean flag;
@@ -65,26 +67,61 @@ public class ListaProdutoActivity extends ActionBarActivity {
 
 		ListaItemAdapter adapter = new ListaItemAdapter(this, itens);
 		list.setAdapter(adapter);
+		
+		list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> adapter, View v, int position,long id2) {
+				//TODO implementar o evento de click no item
+				
+				// retornar da lista jsonMovimentacao o item ( criar metodo ) 
+				Integer id = retornaItem((ListaItem) adapter.getItemAtPosition(position));
+				// criar a intent 
+				Intent it = new Intent(ListaProdutoActivity.this, DadosProdutoActivity.class);
+				// salvar o ID na intent 
+				it.putExtra("id", id);
+				// iniciar intent
+				startActivity(it);
+				
+			}
+		});
+	}
+	
+	private Integer retornaItem(ListaItem param){
+		Integer id = -1;
+		JSONObject json;
+		for(int i = 0; i < jsonMovimentacao.length(); i++){
+			try {
+				json = jsonMovimentacao.getJSONObject(i);
+				if(json.getString("NOME") == param.getNome()){
+					id = json.getInt("ID");
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return id;
+		
 	}
 
 	private void recuperaItensLista() {
 
-		Long valorAtual = 0L;
-		JSONArray jsonMovimentacao = db.selectMovimentacao();
+		Float valorAtual = 0F;
+		jsonMovimentacao = db.selectMovimentacao();
 		JSONArray jsonArray = db.selectProduto();
 		for(int i = 0; i < jsonArray.length();i++){
 			try {
-				valorAtual = 0L;
+				valorAtual = 0F;
 				JSONObject json = jsonArray.getJSONObject(i);
 				for(int j = 0; j < jsonMovimentacao.length(); j++){
 					JSONObject jsonMov = jsonMovimentacao.getJSONObject(j);
 					if(jsonMov.getLong("ID_PRODUTO") == json.getLong("ID")){
 						Integer tipo = jsonMov.getInt("TIPO");
 						 if( tipo == 1 ){
-							 valorAtual = valorAtual + jsonMov.getLong("VALOR");  
+							 valorAtual = valorAtual + Float.valueOf(jsonMov.getString("VALOR"));  
 						 }
 						 else{
-							 valorAtual = valorAtual - jsonMov.getLong("VALOR");
+							 valorAtual = valorAtual - Float.valueOf(jsonMov.getString("VALOR"));
 						 }
 							 
 					}

@@ -3,7 +3,7 @@ package com.android.controleestoque.VO;
 public class ProdutoVO {
 	private Integer idProduto;
 	private Integer idCategoria;
-	private Integer numProduto;
+	private String codProduto;
 	private Integer minQuant;
 	private Integer maxQuant;
 	private String nome;
@@ -26,11 +26,11 @@ public class ProdutoVO {
 	public void setIdCategoria(Integer idCategoria) {
 		this.idCategoria = idCategoria;
 	}
-	public Integer getNumProduto() {
-		return numProduto;
+	public String getCodProduto() {
+		return codProduto;
 	}
-	public void setNumProduto(Integer numProduto) {
-		this.numProduto = numProduto;
+	public void setCodProduto(String codProduto) {
+		this.codProduto = codProduto;
 	}
 	public Integer getMinQuant() {
 		return minQuant;

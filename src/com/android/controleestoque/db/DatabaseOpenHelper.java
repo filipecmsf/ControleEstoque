@@ -18,7 +18,7 @@ import com.android.controleestoque.VO.ProdutoVO;
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
 	public static final String DATABASE_NAME = "ControleEstoque";
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 5;
 
 	private final String TableProdutoNome = "PRODUTO";
 	private final String TableMovimentacaoNome = "MOVIMENTACAO";
@@ -36,7 +36,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		sql[0] = "CREATE TABLE " + TableProdutoNome
 				+ "(ID INTEGER PRIMARY KEY" +
 				", ID_CATEGORIA INTEGER" + 
-				", NUM_PRODUTO INTEGER" + 
+				", COD_PRODUTO TEXT" + 
 				", MAX_QUANT REAL" + 
 				", MIN_QUANT REAL" + 
 				", NOME TEXT" + 
@@ -78,7 +78,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put("VALOR", movimentacaoVO.getValor());
 		values.put("TIPO", movimentacaoVO.getTipo());
-		values.put("QUANT", 0);
+		values.put("QUANT", movimentacaoVO.getQuantidade());
 		values.put("ID_PRODUTO", movimentacaoVO.getProduto());
 
 		resultado = db.insert(TableMovimentacaoNome, null, values);
@@ -96,7 +96,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		values.put("MAX_QUANT", produtoVO.getMaxQuant());
 		values.put("MIN_QUANT", produtoVO.getMinQuant());
 		values.put("NOME", produtoVO.getNome());
-		values.put("NUM_PRODUTO", produtoVO.getNumProduto());
+		values.put("COD_PRODUTO", produtoVO.getCodProduto());
 
 		resultado = db.insert(TableProdutoNome, null, values);
 		db.close();
@@ -202,7 +202,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	public JSONArray selectProduto() {
 		JSONArray jsonArray = new JSONArray();
 		String jsonString = new String();
-		String selectQuery = "SELECT ID, ID_CATEGORIA, NUM_PRODUTO, MIN_QUANT, MAX_QUANT, NOME FROM " + TableProdutoNome;
+		String selectQuery = "SELECT ID, ID_CATEGORIA, COD_PRODUTO, MIN_QUANT, MAX_QUANT, NOME FROM " + TableProdutoNome;
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -215,7 +215,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 						jsonString += "{";
 						jsonString += "\"ID\":" + cursor.getString(0);
 						jsonString += ",\"ID_CATEGORIA\":" + cursor.getString(1);
-						jsonString += ",\"NUM_PRODUTO\":" + cursor.getString(2);
+						jsonString += ",\"COD_PRODUTO\":\"" + cursor.getString(2) + "\"";
 						jsonString += ",\"MIN_QUANT\":" + cursor.getString(3);
 						jsonString += ",\"MAX_QUANT\":" + cursor.getString(4);
 						jsonString += ",\"NOME\":\"" + cursor.getString(5) + "\"";

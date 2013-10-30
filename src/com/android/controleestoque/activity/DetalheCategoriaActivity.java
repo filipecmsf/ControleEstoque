@@ -2,7 +2,6 @@ package com.android.controleestoque.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,22 +25,36 @@ public class DetalheCategoriaActivity extends ActionBarActivity {
 		tvDescricao = (EditText) findViewById(R.id.tv_descricao_categoria);
 		
 		db = new DatabaseOpenHelper(getApplicationContext());
-//		db.selectCategorias();
 	}
 	
 	public void adicionar(View v){
-		Log.d("cadastro", "entrou");
+		String texto = "";
 		CategoriaVO categoriaVO = new CategoriaVO();
 		
-		categoriaVO.setDescricao(tvDescricao.getText().toString());
-		categoriaVO.setNome(tvNome.getText().toString());
-		String texto = "";
-		long  result = db.insertCategoria(categoriaVO);
-		if (result > 0){
-			texto = "Categoria cadastrada com sucesso !";
+		String desc = tvDescricao.getText().toString();
+		String nome = tvNome.getText().toString();
+		Boolean completo = Boolean.TRUE;
+		
+		if(desc.trim().isEmpty()){
+			completo = Boolean.FALSE;
+			texto = "Informe a descrição";
 		}
-		else{
-			texto = "Ocorreu um erro.";
+		
+		if(nome.trim().isEmpty()){
+			completo = Boolean.FALSE;
+			texto = "Informe a nome";
+		}
+		
+		if(completo){
+			categoriaVO.setDescricao(desc);
+			categoriaVO.setNome(nome);
+			long  result = db.insertCategoria(categoriaVO);
+			if (result > 0){
+				texto = "Categoria cadastrada com sucesso !";
+			}
+			else{
+				texto = "Ocorreu um erro.";
+			}
 		}
 		Toast.makeText(this, texto,Toast.LENGTH_LONG).show();
 	}

@@ -49,7 +49,7 @@ public class ListaItemAdapter extends BaseAdapter {
         String nome = item.getNome();
         String tipo = item.getTipo();
         Integer min = item.getMinimo();
-        Long atual = item.getAtual();
+        Float atual = item.getAtual();
         Integer max = item.getMaximo();  
         
         ((TextView) convertView.findViewById(R.id.nome_item)).setText(nome);

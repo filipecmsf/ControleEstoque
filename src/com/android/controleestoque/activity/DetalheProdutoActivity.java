@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -69,34 +70,72 @@ public class DetalheProdutoActivity extends ActionBarActivity {
 	}
 
 	public void cadastrar(View v) {
+		Boolean completo = Boolean.TRUE;
 		String texto = "";
+		String cod = ed_num.getText().toString();
+		String nome = ed_nome.getText().toString();
+		String max_s = ed_max.getText().toString();
+		String min_s =ed_min.getText().toString();
+		Log.d("cadastro", cod + " " + cod.length());
 		
-		ProdutoVO produtoVO = new ProdutoVO();
-		produtoVO.setMaxQuant(Integer.valueOf(ed_max.getText().toString()));
-		produtoVO.setMinQuant(Integer.valueOf(ed_min.getText().toString()));
-		produtoVO.setNumProduto(Integer.valueOf(ed_num.getText().toString()));
-		produtoVO.setNome(ed_nome.getText().toString());
+		if(cod.trim().isEmpty()){
+			Log.d("cadastro","cod");
+			texto = "Informe o codigo do produto";
+			completo = Boolean.FALSE;
+		}
+		
+		if(nome.trim().isEmpty()){
+			Log.d("cadastro","nome");
+			texto = "Informe o codigo do nome";
+			completo = Boolean.FALSE;
+		}
+		
+		if(max_s.trim().isEmpty()){
+			Log.d("cadastro","max");
+			texto = "Informe o valor maximo";
+			completo = Boolean.FALSE;
+		}
+		
+		if(min_s.trim().isEmpty()){
+			Log.d("cadastro","min");
+			texto = "Informe o valor minimo";
+			completo = Boolean.FALSE;
+		}
+		
+		if(completo && (Integer.valueOf(max_s) < Integer.valueOf(min_s))){
+			Log.d("cadastro","max < min");
+			texto = "maximo nao pode ser menor que o minimo";
+			completo = Boolean.FALSE;
+		}
+		
+		if(completo){
+			ProdutoVO produtoVO = new ProdutoVO();
 
-		for (int i = 0; i < jsonarray.length(); i++) {
-			JSONObject json;
-			try {
-				json = jsonarray.getJSONObject(i);
-				if (sp_categoria.getSelectedItem().toString() == json.getString("NOME")) {
-					produtoVO.setIdCategoria(json.getInt("ID"));
+			produtoVO.setMaxQuant(Integer.valueOf(max_s));
+			produtoVO.setMinQuant(Integer.valueOf(min_s));
+			produtoVO.setCodProduto(cod);
+			produtoVO.setNome(nome);
+			for (int i = 0; i < jsonarray.length(); i++) {
+				JSONObject json;
+				try {
+					json = jsonarray.getJSONObject(i);
+					if (sp_categoria.getSelectedItem().toString() == json.getString("NOME")) {
+						produtoVO.setIdCategoria(json.getInt("ID"));
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
-			} catch (JSONException e) {
-				e.printStackTrace();
+			}
+			long result = db.insertProduto(produtoVO); 
+			if (result > 0){
+				texto = "Produto cadastrado com sucesso !";
+			}
+			else{
+				texto = "Ocorreu um erro.";
 			}
 		}
-		
-		long result = db.insertProduto(produtoVO); 
-		if (result > 0){
-			texto = "Produto cadastrado com sucesso !";
-		}
-		else{
-			texto = "Ocorreu um erro.";
-		}
 		Toast.makeText(this, texto,Toast.LENGTH_LONG).show();
+		
 	}
 	
 	public void voltar(View v){

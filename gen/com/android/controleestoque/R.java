@@ -1022,11 +1022,13 @@ containing a value of this type.
         public static final int btn_login_login=0x7f050064;
         public static final int button1=0x7f050047;
         public static final int button2=0x7f050046;
+        public static final int cancel_menu=0x7f050067;
         public static final int checkbox=0x7f05002b;
         public static final int collapseActionView=0x7f05000d;
         public static final int default_activity_button=0x7f050026;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
+        public static final int done_menu=0x7f050066;
         public static final int drawer_layout=0x7f05005b;
         public static final int dropdown=0x7f05000f;
         public static final int editText1=0x7f050062;
@@ -1168,6 +1170,7 @@ containing a value of this type.
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
+        public static final int menu_form=0x7f0d0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
