@@ -1,141 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
     style="@style/padrao"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/caixa_cinza"
-            android:text="Voltar"
-            android:textColor="@color/white" />
-
-        <Button
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/caixa_azul"
-            android:text="Nova Movimentação"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/caixa_branca"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/caixa_branca"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Nome" />
+
+                <TextView
+                    android:id="@+id/tv_nome_dados"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="teste produto" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Valor Atual" />
+
+                <TextView
+                    android:id="@+id/tv_atual_dados"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="300" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Valor mínimo" />
+
+                <TextView
+                    android:id="@+id/tv_minimo_dados"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Valor máximo" />
+
+                <TextView
+                    android:id="@+id/tv_maximo_dados"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="500" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/textView1"
-                android:layout_width="0sp"
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Nome" />
-
-            <TextView
-                android:id="@+id/tv_nome_dados"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="teste produto" />
+                android:layout_gravity="right"
+                android:background="@drawable/caixa_laranja"
+                android:text="Editar produto"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_lista"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/caixa_branca"
+            android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView1"
-                android:layout_width="0sp"
+                android:id="@+id/tv_title_dados"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Valor Atual" />
+                android:text="Lista de movimentação do produto"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_nome_dados"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="300" />
+            <ListView
+                android:id="@+id/lv_movimentacao_dados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Valor mínimo" />
-
-            <TextView
-                android:id="@+id/tv_nome_dados"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="0" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Valor máximo" />
-
-            <TextView
-                android:id="@+id/tv_nome_dados"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="500" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:background="@drawable/caixa_laranja"
-            android:text="Editar produto"
-            android:textColor="@color/white" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/lv_movimentacao_dados"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="0dp"
-        android:background="@drawable/caixa_branca" >
-    </ListView>
-
-</LinearLayout>
+</ScrollView>

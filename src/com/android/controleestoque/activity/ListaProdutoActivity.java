@@ -37,7 +37,9 @@ public class ListaProdutoActivity extends ActionBarActivity {
 	private CharSequence drawerTitle;
 	private CharSequence title;
 	private String[] itemsTitles;
+	
 	private JSONArray jsonMovimentacao;
+	private JSONArray jsonArray;
 	
 	private DatabaseOpenHelper db;
 	
@@ -78,8 +80,11 @@ public class ListaProdutoActivity extends ActionBarActivity {
 				Integer id = retornaItem((ListaItem) adapter.getItemAtPosition(position));
 				// criar a intent 
 				Intent it = new Intent(ListaProdutoActivity.this, DadosProdutoActivity.class);
-				// salvar o ID na intent 
-				it.putExtra("id", id);
+				// salvar o id no bundle
+				Bundle param = new Bundle();
+				param.putString("id", id.toString());
+				//adiciona os parametros na intent
+				it.putExtras(param);
 				// iniciar intent
 				startActivity(it);
 				
@@ -90,9 +95,9 @@ public class ListaProdutoActivity extends ActionBarActivity {
 	private Integer retornaItem(ListaItem param){
 		Integer id = -1;
 		JSONObject json;
-		for(int i = 0; i < jsonMovimentacao.length(); i++){
+		for(int i = 0; i < jsonArray.length(); i++){
 			try {
-				json = jsonMovimentacao.getJSONObject(i);
+				json = jsonArray.getJSONObject(i);
 				if(json.getString("NOME") == param.getNome()){
 					id = json.getInt("ID");
 				}
@@ -108,7 +113,7 @@ public class ListaProdutoActivity extends ActionBarActivity {
 
 		Float valorAtual = 0F;
 		jsonMovimentacao = db.selectMovimentacao();
-		JSONArray jsonArray = db.selectProduto();
+		jsonArray = db.selectProduto();
 		for(int i = 0; i < jsonArray.length();i++){
 			try {
 				valorAtual = 0F;
@@ -118,10 +123,10 @@ public class ListaProdutoActivity extends ActionBarActivity {
 					if(jsonMov.getLong("ID_PRODUTO") == json.getLong("ID")){
 						Integer tipo = jsonMov.getInt("TIPO");
 						 if( tipo == 1 ){
-							 valorAtual = valorAtual + Float.valueOf(jsonMov.getString("VALOR"));  
+							 valorAtual = valorAtual + Float.valueOf(jsonMov.getString("QUANT"));  
 						 }
 						 else{
-							 valorAtual = valorAtual - Float.valueOf(jsonMov.getString("VALOR"));
+							 valorAtual = valorAtual - Float.valueOf(jsonMov.getString("QUANT"));
 						 }
 							 
 					}

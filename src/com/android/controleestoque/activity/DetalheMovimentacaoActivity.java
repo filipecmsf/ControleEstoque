@@ -8,7 +8,10 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.View;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -67,7 +70,7 @@ public class DetalheMovimentacaoActivity extends ActionBarActivity {
 
 	}
 
-	public void cadastrar(View v) {
+	private void cadastrar() {
 
 		String texto = "";
 		Boolean completo = Boolean.TRUE;
@@ -122,7 +125,33 @@ public class DetalheMovimentacaoActivity extends ActionBarActivity {
 		Toast.makeText(this, texto,Toast.LENGTH_LONG).show();
 	}
 	
-	public void voltar(View v){
-		finish();
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_form, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		// Handle action buttons
+		switch (item.getItemId()) {
+		case R.id.done_menu:
+        	Log.d("item","chamou o done_menu");
+        	cadastrar();
+        	break;
+        	
+		case R.id.cancel_menu:
+        	Log.d("item","chamou o cancel_menu");
+        	finish();
+        	break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

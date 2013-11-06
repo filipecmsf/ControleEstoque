@@ -9,7 +9,9 @@ import org.json.JSONObject;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -69,7 +71,7 @@ public class DetalheProdutoActivity extends ActionBarActivity {
 
 	}
 
-	public void cadastrar(View v) {
+	private void cadastrar() {
 		Boolean completo = Boolean.TRUE;
 		String texto = "";
 		String cod = ed_num.getText().toString();
@@ -138,7 +140,33 @@ public class DetalheProdutoActivity extends ActionBarActivity {
 		
 	}
 	
-	public void voltar(View v){
-		finish();
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_form, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		// Handle action buttons
+		switch (item.getItemId()) {
+		case R.id.done_menu:
+        	Log.d("item","chamou o done_menu");
+        	cadastrar();
+        	break;
+        	
+		case R.id.cancel_menu:
+        	Log.d("item","chamou o cancel_menu");
+        	finish();
+        	break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

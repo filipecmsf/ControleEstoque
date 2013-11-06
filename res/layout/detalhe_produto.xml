@@ -5,40 +5,6 @@
         style="@style/padrao"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/caixa_cinza"
-            android:textColor="@color/white"
-            android:layout_marginLeft="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="4dp"
-            android:onClick="voltar"
-            android:text="Voltar" />
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/caixa_azul"
-            android:textColor="@color/white"
-            android:layout_marginLeft="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="4dp"
-            android:onClick="cadastrar"
-            android:text="Cadastrar" />
-
-    </LinearLayout>
-
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
@@ -150,26 +116,6 @@
                     android:layout_weight="1"
                     android:ems="10" />
             </LinearLayout>
-            <!-- 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="TextView" />
-
-                <EditText
-                    android:id="@+id/editText1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10" />
-            </LinearLayout> -->
         </LinearLayout>
     </ScrollView>
 

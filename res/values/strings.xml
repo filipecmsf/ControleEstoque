@@ -9,6 +9,7 @@
     
     <string name="cadastrar">Cadastrar</string>
     <string name="adicionar">Adicionar</string>
+    <string name="cancelar">Cancelar</string>
     
     <!-- strings de navigation drawer -->
     <string name="drawer_open">Open navigation drawer</string>

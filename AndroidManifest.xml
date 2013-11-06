@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="18" />
 
     <application
         android:allowBackup="true"
@@ -48,11 +48,11 @@
         </activity>
         
         <activity android:name="com.android.controleestoque.activity.DetalheProdutoActivity"
-            android:label="Detalhe Produto">
+            android:label="Cadastro Produto">
         </activity>
         
         <activity android:name="com.android.controleestoque.activity.DadosProdutoActivity"
-            android:label="Detalhe Produto">
+            android:label="Detalhes Produto">
         </activity>
         
     </application>

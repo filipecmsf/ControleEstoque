@@ -47,6 +47,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 				", ID_PRODUTO INTEGER" + 
 				", QUANT REAL" + 
 				", TIPO INTEGER" + 
+				", DATA_REGISTRO TEXT " +
 				", VALOR REAL" + 
 				");";
 
@@ -199,6 +200,47 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		return jsonArray;
 	}
 	
+	public JSONArray selectMovimentacaoProduto(String id) {
+		JSONArray jsonArray = new JSONArray();
+		String jsonString = new String();
+		String selectQuery = "SELECT MOV.ID, MOV.ID_PRODUTO, MOV.QUANT, MOV.TIPO, MOV.VALOR, PRO.NOME FROM " + TableMovimentacaoNome + " AS MOV " +
+				"LEFT JOIN " + TableProdutoNome + " AS PRO ON PRO.ID = MOV.ID_PRODUTO WHERE MOV.ID_PRODUTO = " + id + " ORDER BY MOV.ID DESC LIMIT 10";
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+			if (cursor.moveToFirst()) {
+				try {
+					jsonString = "{\"movimentacao\":[";
+					do {
+						jsonString += "{";
+						jsonString += "\"ID\":" + cursor.getString(0);
+						jsonString += ",\"ID_PRODUTO\":" + cursor.getString(1);
+						jsonString += ",\"QUANT\":" + cursor.getString(2);
+						jsonString += ",\"TIPO\":" + cursor.getString(3);
+						jsonString += ",\"VALOR\":" + cursor.getString(4);
+						jsonString += ",\"NOME\":\"" + cursor.getString(5) + "\"";
+						jsonString += "}";
+						if(!cursor.isLast()){
+							jsonString += ",";
+						}
+						
+					} while (cursor.moveToNext());
+					jsonString += "]}";
+					Log.d("database", "movimentacao: " + jsonString);
+
+					jsonArray = new JSONArray(new JSONObject(jsonString).getString("movimentacao"));
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				} finally{
+					db.close();
+				}
+			}
+
+		return jsonArray;
+	}
+	
 	public JSONArray selectProduto() {
 		JSONArray jsonArray = new JSONArray();
 		String jsonString = new String();
@@ -231,9 +273,47 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	
 				} catch (JSONException e) {
 					e.printStackTrace();
+				} finally{
+					db.close();
 				}
 			}
 
 		return jsonArray;
+	}
+
+	public JSONObject selectDadosProduto(String id_produto) {
+		JSONObject json = new JSONObject();
+		String jsonString = new String();
+		String selectQuery = "SELECT ID, ID_CATEGORIA, COD_PRODUTO, MIN_QUANT, MAX_QUANT, NOME FROM " + TableProdutoNome 
+				+ " WHERE ID = " + id_produto;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+			if (cursor.moveToFirst()) {
+				try {
+					do {
+						jsonString = "{";
+						jsonString += "\"ID\":" + cursor.getString(0);
+						jsonString += ",\"ID_CATEGORIA\":" + cursor.getString(1);
+						jsonString += ",\"COD_PRODUTO\":\"" + cursor.getString(2) + "\"";
+						jsonString += ",\"MIN_QUANT\":" + cursor.getString(3);
+						jsonString += ",\"MAX_QUANT\":" + cursor.getString(4);
+						jsonString += ",\"NOME\":\"" + cursor.getString(5) + "\"";
+						jsonString += "}";
+					} while (cursor.moveToNext());
+					Log.d("database", "produto: " + jsonString);
+					
+					json = new JSONObject(jsonString);
+	
+				} catch (JSONException e) {
+					e.printStackTrace();
+				} finally{
+					db.close();
+				}
+				
+			}
+
+		return json;
 	}
 }
