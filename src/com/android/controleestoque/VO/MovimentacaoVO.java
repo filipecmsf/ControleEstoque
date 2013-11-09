@@ -4,6 +4,7 @@ public class MovimentacaoVO {
 	private Integer idProduto;
 	private Integer idMovimento;
 	private Integer quantidade;
+	private String data;
 	private Integer tipo;
 	private Float valor;
 	
@@ -36,6 +37,12 @@ public class MovimentacaoVO {
 	}
 	public void setProduto(Integer produto) {
 		this.idProduto = produto;
+	}
+	public String getData() {
+		return data;
+	}
+	public void setData(String data) {
+		this.data = data;
 	}
 	
 }

@@ -25,8 +25,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.controleestoque.R;
-import com.android.controleestoque.adapter.ListaItem;
-import com.android.controleestoque.adapter.ListaItemAdapter;
+import com.android.controleestoque.adapter.ItemListaCategoria;
+import com.android.controleestoque.adapter.ItemListaCategoriaAdapter;
 import com.android.controleestoque.db.DatabaseOpenHelper;
 
 public class ListaCategoriaActivity extends ActionBarActivity{
@@ -41,7 +41,7 @@ public class ListaCategoriaActivity extends ActionBarActivity{
     
     private Boolean flag;
     
-    private ArrayList<ListaItem> itens;
+    private ArrayList<ItemListaCategoria> itens;
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,11 +59,11 @@ public class ListaCategoriaActivity extends ActionBarActivity{
 	
 	private void criaLista(){
 		ListView list = (ListView) findViewById(R.id.list_categoria);
-		itens = new ArrayList<ListaItem>();
+		itens = new ArrayList<ItemListaCategoria>();
 
 		recuperaItensLista();
 		
-		ListaItemAdapter adapter = new ListaItemAdapter(this, itens);
+		ItemListaCategoriaAdapter adapter = new ItemListaCategoriaAdapter(this, itens);
 		list.setAdapter(adapter);
 	}
 	
@@ -72,7 +72,7 @@ public class ListaCategoriaActivity extends ActionBarActivity{
 		for(int i = 0; i < jsonarray.length();i++){
 			try {
 				JSONObject json = jsonarray.getJSONObject(i);
-				itens.add(new ListaItem(json.getString("NOME")));
+				itens.add(new ItemListaCategoria(json.getString("NOME"),json.getString("DESCRICAO")));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

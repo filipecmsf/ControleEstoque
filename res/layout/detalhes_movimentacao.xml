@@ -36,8 +36,10 @@
                     android:id="@+id/sp_produto_mov"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-                
+                    android:layout_weight="1" >
+
+                    <requestFocus />
+                </Spinner>
             </LinearLayout>
 
             <LinearLayout
@@ -91,9 +93,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:inputType="numberDecimal"
                     android:ems="10" />
             </LinearLayout>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
@@ -113,10 +116,32 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="numberDecimal" >
-
-                    <requestFocus />
                 </EditText>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView01"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Data da Movimentacao" />
+
+                <TextView
+                    android:id="@+id/tv_data_movimentacao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:textSize="20sp"
+                    android:onClick="showDatePickerDialog"
+                    android:text="Defina a data"  />
+                
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

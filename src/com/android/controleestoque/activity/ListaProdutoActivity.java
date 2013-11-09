@@ -26,8 +26,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.controleestoque.R;
-import com.android.controleestoque.adapter.ListaItem;
-import com.android.controleestoque.adapter.ListaItemAdapter;
+import com.android.controleestoque.adapter.ItemListaProduto;
+import com.android.controleestoque.adapter.ItemListaProdutoAdapter;
 import com.android.controleestoque.db.DatabaseOpenHelper;
 
 public class ListaProdutoActivity extends ActionBarActivity {
@@ -45,7 +45,7 @@ public class ListaProdutoActivity extends ActionBarActivity {
 	
 	private Boolean flag;
 
-	private ArrayList<ListaItem> itens;
+	private ArrayList<ItemListaProduto> itens;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,11 +63,11 @@ public class ListaProdutoActivity extends ActionBarActivity {
 
 	private void criaLista() {
 		ListView list = (ListView) findViewById(R.id.list_produto);
-		itens = new ArrayList<ListaItem>();
+		itens = new ArrayList<ItemListaProduto>();
 
 		recuperaItensLista();
 
-		ListaItemAdapter adapter = new ListaItemAdapter(this, itens);
+		ItemListaProdutoAdapter adapter = new ItemListaProdutoAdapter(this, itens);
 		list.setAdapter(adapter);
 		
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -77,7 +77,7 @@ public class ListaProdutoActivity extends ActionBarActivity {
 				//TODO implementar o evento de click no item
 				
 				// retornar da lista jsonMovimentacao o item ( criar metodo ) 
-				Integer id = retornaItem((ListaItem) adapter.getItemAtPosition(position));
+				Integer id = retornaItem((ItemListaProduto) adapter.getItemAtPosition(position));
 				// criar a intent 
 				Intent it = new Intent(ListaProdutoActivity.this, DadosProdutoActivity.class);
 				// salvar o id no bundle
@@ -92,7 +92,7 @@ public class ListaProdutoActivity extends ActionBarActivity {
 		});
 	}
 	
-	private Integer retornaItem(ListaItem param){
+	private Integer retornaItem(ItemListaProduto param){
 		Integer id = -1;
 		JSONObject json;
 		for(int i = 0; i < jsonArray.length(); i++){
@@ -132,7 +132,7 @@ public class ListaProdutoActivity extends ActionBarActivity {
 					}
 				}
 				
-				itens.add(new ListaItem(json.getString("NOME"), Integer.valueOf(json.getString("MIN_QUANT")), Integer.valueOf(json.getString("MAX_QUANT")),valorAtual));
+				itens.add(new ItemListaProduto(json.getString("NOME"), Integer.valueOf(json.getString("MIN_QUANT")), Integer.valueOf(json.getString("MAX_QUANT")),valorAtual));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

@@ -1,13 +1,13 @@
 package com.android.controleestoque.adapter;
 
-public class ListaItem {
+public class ItemListaProduto {
 	private String nome;
 	private String tipo;
 	private Integer minimo;
 	private Integer maximo;
 	private Float atual;
 
-	public ListaItem(String nome, Integer min, Integer max, Float valorAtual) {
+	public ItemListaProduto(String nome, Integer min, Integer max, Float valorAtual) {
 		this.nome = nome;
 		this.minimo = min;
 		this.atual = valorAtual;
@@ -15,7 +15,7 @@ public class ListaItem {
 		this.tipo = null;
 	}
 
-	public ListaItem(String nome) {
+	public ItemListaProduto(String nome) {
 		this.nome = nome;
 		this.minimo = null;
 		this.atual = null;
@@ -23,7 +23,7 @@ public class ListaItem {
 		this.tipo = null;
 	}
 
-	public ListaItem(String nome, String tipo, Float valor) {
+	public ItemListaProduto(String nome, String tipo, Float valor) {
 		this.nome = nome;
 		this.atual = valor;
 		this.tipo = tipo;

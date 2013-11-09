@@ -18,7 +18,7 @@ import com.android.controleestoque.VO.ProdutoVO;
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
 	public static final String DATABASE_NAME = "ControleEstoque";
-	public static final int DATABASE_VERSION = 5;
+	public static final int DATABASE_VERSION = 6;
 
 	private final String TableProdutoNome = "PRODUTO";
 	private final String TableMovimentacaoNome = "MOVIMENTACAO";
@@ -81,6 +81,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		values.put("TIPO", movimentacaoVO.getTipo());
 		values.put("QUANT", movimentacaoVO.getQuantidade());
 		values.put("ID_PRODUTO", movimentacaoVO.getProduto());
+		values.put("DATA_REGISTRO", movimentacaoVO.getData());
 
 		resultado = db.insert(TableMovimentacaoNome, null, values);
 		db.close();
@@ -162,7 +163,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	public JSONArray selectMovimentacao() {
 		JSONArray jsonArray = new JSONArray();
 		String jsonString = new String();
-		String selectQuery = "SELECT MOV.ID, MOV.ID_PRODUTO, MOV.QUANT, MOV.TIPO, MOV.VALOR, PRO.NOME FROM " + TableMovimentacaoNome + " AS MOV " +
+		String selectQuery = "SELECT MOV.ID, MOV.ID_PRODUTO, MOV.QUANT, MOV.TIPO, MOV.VALOR, PRO.NOME, MOV.DATA_REGISTRO FROM " + TableMovimentacaoNome + " AS MOV " +
 				"LEFT JOIN " + TableProdutoNome + " AS PRO ON PRO.ID = MOV.ID_PRODUTO";
 
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -179,6 +180,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 						jsonString += ",\"TIPO\":" + cursor.getString(3);
 						jsonString += ",\"VALOR\":" + cursor.getString(4);
 						jsonString += ",\"NOME\":\"" + cursor.getString(5) + "\"";
+						jsonString += ",\"DATA_REGISTRO\":\"" + cursor.getString(6) + "\"";
 						jsonString += "}";
 						if(!cursor.isLast()){
 							jsonString += ",";
@@ -203,8 +205,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	public JSONArray selectMovimentacaoProduto(String id) {
 		JSONArray jsonArray = new JSONArray();
 		String jsonString = new String();
-		String selectQuery = "SELECT MOV.ID, MOV.ID_PRODUTO, MOV.QUANT, MOV.TIPO, MOV.VALOR, PRO.NOME FROM " + TableMovimentacaoNome + " AS MOV " +
-				"LEFT JOIN " + TableProdutoNome + " AS PRO ON PRO.ID = MOV.ID_PRODUTO WHERE MOV.ID_PRODUTO = " + id + " ORDER BY MOV.ID DESC LIMIT 10";
+		String selectQuery = "SELECT MOV.ID, MOV.ID_PRODUTO, MOV.QUANT, MOV.TIPO, MOV.VALOR, PRO.NOME, MOV.DATA_REGISTRO FROM " + TableMovimentacaoNome + " AS MOV " +
+				"LEFT JOIN " + TableProdutoNome + " AS PRO ON PRO.ID = MOV.ID_PRODUTO WHERE MOV.ID_PRODUTO = " + id + " ORDER BY MOV.ID DESC LIMIT 5";
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -220,6 +222,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 						jsonString += ",\"TIPO\":" + cursor.getString(3);
 						jsonString += ",\"VALOR\":" + cursor.getString(4);
 						jsonString += ",\"NOME\":\"" + cursor.getString(5) + "\"";
+						jsonString += ",\"DATA_REGISTRO\":\"" + cursor.getString(6) + "\"";
 						jsonString += "}";
 						if(!cursor.isLast()){
 							jsonString += ",";

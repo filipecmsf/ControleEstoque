@@ -19,14 +19,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.controleestoque.R;
-import com.android.controleestoque.adapter.ListaItem;
-import com.android.controleestoque.adapter.ListaItemAdapter;
+import com.android.controleestoque.adapter.ItemListaMovimentacao;
+import com.android.controleestoque.adapter.ItemListaMovimentacaoAdapter;
 import com.android.controleestoque.db.DatabaseOpenHelper;
 
 public class DadosProdutoActivity extends ActionBarActivity{
 
 	private DatabaseOpenHelper db;
-    private ArrayList<ListaItem> itens;
+    private ArrayList<ItemListaMovimentacao> itens;
     private String id_produto;
     
     private TextView tv_nome;
@@ -91,11 +91,11 @@ public class DadosProdutoActivity extends ActionBarActivity{
 	
 	private void criaLista(){
 		ListView list = (ListView) findViewById(R.id.lv_movimentacao_dados);
-		itens = new ArrayList<ListaItem>();
+		itens = new ArrayList<ItemListaMovimentacao>();
 
 		recuperaItensLista();
 		
-		ListaItemAdapter adapter = new ListaItemAdapter(this, itens);
+		ItemListaMovimentacaoAdapter adapter = new ItemListaMovimentacaoAdapter(this, itens);
 		list.setAdapter(adapter);
 	}
 	
@@ -105,13 +105,13 @@ public class DadosProdutoActivity extends ActionBarActivity{
 		Log.d("linearLayout","antes" + Integer.valueOf(ll_lista.getHeight()).toString());
 		
 		LayoutParams params = (LayoutParams) ll_lista.getLayoutParams();
-		params.height = 30 + (125 * jsonarray.length());
+		params.height = 30 + (145 * jsonarray.length());
 		
 		Log.d("linearLayout","depois" + Integer.valueOf(ll_lista.getHeight()).toString());
 		for(int i = 0; i < jsonarray.length();i++){
 			try {
 				JSONObject json = jsonarray.getJSONObject(i);
-				itens.add(new ListaItem(json.getString("NOME"), (json.getInt("TIPO") == 1? "Entrada" : "Saída"), Float.valueOf(json.getString("VALOR"))));
+				itens.add(new ItemListaMovimentacao(json.getString("NOME"),Integer.valueOf(json.getInt("QUANT")), (json.getInt("TIPO") == 1? "Entrada" : "Saída"),Float.valueOf(json.getString("VALOR")),json.getString("DATA_REGISTRO")));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

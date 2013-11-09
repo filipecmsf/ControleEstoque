@@ -25,8 +25,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.controleestoque.R;
-import com.android.controleestoque.adapter.ListaItem;
-import com.android.controleestoque.adapter.ListaItemAdapter;
+import com.android.controleestoque.adapter.ItemListaMovimentacao;
+import com.android.controleestoque.adapter.ItemListaMovimentacaoAdapter;
 import com.android.controleestoque.db.DatabaseOpenHelper;
 
 public class ListaMovimentacaoActivity extends ActionBarActivity{
@@ -42,13 +42,12 @@ public class ListaMovimentacaoActivity extends ActionBarActivity{
     
     private DatabaseOpenHelper db;
     
-    private ArrayList<ListaItem> itens;
+    private ArrayList<ItemListaMovimentacao> itens;
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_movimentacao);
-        
         
         db = new DatabaseOpenHelper(getApplicationContext());
         flag = false;
@@ -60,11 +59,11 @@ public class ListaMovimentacaoActivity extends ActionBarActivity{
 	
 	private void criaLista(){
 		ListView list = (ListView) findViewById(R.id.list_movimentacao);
-		itens = new ArrayList<ListaItem>();
+		itens = new ArrayList<ItemListaMovimentacao>();
 
 		recuperaItensLista();
 		
-		ListaItemAdapter adapter = new ListaItemAdapter(this, itens);
+		ItemListaMovimentacaoAdapter adapter = new ItemListaMovimentacaoAdapter(this, itens);
 		list.setAdapter(adapter);
 	}
 	
@@ -73,7 +72,7 @@ public class ListaMovimentacaoActivity extends ActionBarActivity{
 		for(int i = 0; i < jsonarray.length();i++){
 			try {
 				JSONObject json = jsonarray.getJSONObject(i);
-				itens.add(new ListaItem(json.getString("NOME"), (json.getInt("TIPO") == 1? "Entrada" : "Saída"), Float.valueOf(json.getString("VALOR"))));
+				itens.add(new ItemListaMovimentacao(json.getString("NOME"),Integer.valueOf(json.getInt("QUANT")), (json.getInt("TIPO") == 1? "Entrada" : "Saída"),Float.valueOf(json.getString("VALOR")),json.getString("DATA_REGISTRO")));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

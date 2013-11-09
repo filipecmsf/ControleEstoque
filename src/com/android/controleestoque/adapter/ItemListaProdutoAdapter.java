@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 import com.android.controleestoque.R;
 
-public class ListaItemAdapter extends BaseAdapter {
+public class ItemListaProdutoAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
-	private ArrayList<ListaItem> itens;
+	private ArrayList<ItemListaProduto> itens;
 
-	public ListaItemAdapter(Context context,ArrayList<ListaItem> itens) {
+	public ItemListaProdutoAdapter(Context context,ArrayList<ItemListaProduto> itens) {
 		this.itens = itens;
 		mInflater = LayoutInflater.from(context);
 	}
@@ -27,7 +27,7 @@ public class ListaItemAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public ListaItem getItem(int position) {
+	public ItemListaProduto getItem(int position) {
 		return itens.get(position);
 	}
 
@@ -40,9 +40,9 @@ public class ListaItemAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		//Pega o item de acordo com a posção.
-    	ListaItem item = itens.get(position);
+    	ItemListaProduto item = itens.get(position);
         //infla o layout para podermos preencher os dados
-        convertView = mInflater.inflate(R.layout.item_lista, null);
+        convertView = mInflater.inflate(R.layout.item_lista_produto, null);
 
         //atravez do layout pego pelo LayoutInflater, pegamos cada id relacionado
         //ao item e definimos as informações.

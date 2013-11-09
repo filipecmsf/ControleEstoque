@@ -12,23 +12,29 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.controleestoque.R;
 import com.android.controleestoque.VO.MovimentacaoVO;
 import com.android.controleestoque.db.DatabaseOpenHelper;
+import com.android.controleestoque.dialog.DatePickerFragment;
 
 public class DetalheMovimentacaoActivity extends ActionBarActivity {
 
 	private EditText etValor;
 	private EditText etQuant;
+	private TextView tvData;
 	private Spinner spProduto;
 	private RadioButton rbEntrada;
 	private DatabaseOpenHelper db;
+	
+	private DatePickerFragment dateFragment;
 
 	private ArrayList<String> listaProdutos;
 	private JSONArray jsonarray;
@@ -41,6 +47,7 @@ public class DetalheMovimentacaoActivity extends ActionBarActivity {
 
 		etQuant = (EditText) findViewById(R.id.et_quant_mov);
 		etValor = (EditText) findViewById(R.id.et_valor_mov);
+		tvData = (TextView) findViewById(R.id.tv_data_movimentacao);
 		spProduto = (Spinner) findViewById(R.id.sp_produto_mov);
 		rbEntrada = (RadioButton) findViewById(R.id.radio_entrada);
 
@@ -77,7 +84,7 @@ public class DetalheMovimentacaoActivity extends ActionBarActivity {
 		
 		String valor = etValor.getText().toString();
 		String quant = etQuant.getText().toString();
-		
+		String data =  tvData.getText().toString(); 
 		if(valor.trim().isEmpty()){
 			completo = Boolean.FALSE;
 			texto = "Informe o valor";
@@ -88,11 +95,17 @@ public class DetalheMovimentacaoActivity extends ActionBarActivity {
 			texto = "Informe a quantidade";
 		}
 		
+		if(data == "Defina a data"){
+			completo = Boolean.FALSE;
+			texto = "Informe a data da movimentação";
+		}
+		
 		if(completo){
 			MovimentacaoVO movimentacaoVO = new MovimentacaoVO();
 			
 			movimentacaoVO.setValor(Float.valueOf(valor));
 			movimentacaoVO.setQuantidade(Integer.valueOf(quant));
+			movimentacaoVO.setData(data);
 			
 			//pega o id do produto pega o tipo de movimentacao
 			if (rbEntrada.isChecked()) {
@@ -123,6 +136,12 @@ public class DetalheMovimentacaoActivity extends ActionBarActivity {
 			}
 		}
 		Toast.makeText(this, texto,Toast.LENGTH_LONG).show();
+	}
+	
+	public void showDatePickerDialog(View v) {
+	    dateFragment = new DatePickerFragment();
+	    dateFragment.inicializaTextView(tvData);
+	    dateFragment.show(getSupportFragmentManager(), "datePicker");
 	}
 	
 	@Override
