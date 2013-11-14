@@ -131,6 +131,14 @@ public class DetalheProdutoActivity extends ActionBarActivity {
 			long result = db.insertProduto(produtoVO); 
 			if (result > 0){
 				texto = "Produto cadastrado com sucesso !";
+				ed_max.setText("");
+				ed_min.setText("");
+				ed_nome.setText("");
+				ed_num.setText("");
+				
+				/*
+				 **************** resetar o spinner ***************** 
+				 */
 			}
 			else{
 				texto = "Ocorreu um erro.";

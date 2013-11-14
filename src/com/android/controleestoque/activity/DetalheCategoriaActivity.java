@@ -54,6 +54,8 @@ public class DetalheCategoriaActivity extends ActionBarActivity {
 			long  result = db.insertCategoria(categoriaVO);
 			if (result > 0){
 				texto = "Categoria cadastrada com sucesso !";
+				tvDescricao.setText("");
+				tvNome.setText("");
 			}
 			else{
 				texto = "Ocorreu um erro.";

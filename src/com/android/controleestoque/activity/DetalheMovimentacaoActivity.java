@@ -130,6 +130,13 @@ public class DetalheMovimentacaoActivity extends ActionBarActivity {
 			long result = db.insertMovimentacao(movimentacaoVO);
 			if (result > 0){
 				texto = "Movimentação cadastrada com sucesso !";
+				etQuant.setText("");
+				etValor.setText("");
+				tvData.setText("Defina a data");
+				rbEntrada.setChecked(true);
+				/* 
+				 ********** resetar o spinner ************
+				 */
 			}
 			else{
 				texto = "Ocorreu um erro.";
